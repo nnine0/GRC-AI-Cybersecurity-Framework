@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Trust & Execution Framework</title>
+    <style>
+        :root {
+            --bg-color: #0b1120;
+            --slide-bg: #111827;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent-cyan: #22d3ee;
+            --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-danger: #ef4444;
+            --border-color: #374151;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #presentation-container {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16 / 9;
+            background-color: var(--slide-bg);
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 4rem;
+            box-sizing: border-box;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateX(20px);
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 3rem;
+        }
+
+        .slide-visual {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 1rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        li {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-weight: bold;
+        }
+
+        strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .speaker-note {
+            margin-top: auto;
+            padding: 1rem;
+            background-color: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-emerald);
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .controls {
+            position: absolute;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            z-index: 100;
+        }
+
+        button {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--border-color);
+            color: var(--accent-cyan);
+        }
+
+        .counter {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            max-height: 100%;
+            filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.1));
+        }
+
+        .svg-glow { filter: drop-shadow(0 0 8px var(--accent-cyan)); }
+        .svg-glow-danger { filter: drop-shadow(0 0 8px var(--accent-danger)); }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        
+        <!-- Slide 1 -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-content">
+                <h1>The AI Trust & Execution Framework</h1>
+                <div class="subtitle">The GRC Cycle: Cascading Risk into Cyber, DevOps, AIOps, and Data</div>
+                <ul>
+                    <li><strong>The Paradigm Shift:</strong> AI security is not an IT project; it is the output of a continuous Governance, Risk, and Compliance (GRC) cycle.</li>
+                    <li><strong>The Problem:</strong> Companies write policies for DPA/NIST compliance, but fail to translate them into engineering. The LLM becomes an exfiltration risk.</li>
+                    <li><strong>The Objective:</strong> A unified architecture where Risk translates Governance into hard mandates for Data, DevOps, Cyber, and AIOps via a deterministic boundary.</li>
+                </ul>
+                <div class="speaker-note">"Governance writes the rules, Compliance audits the rules, but Risk is the engine that cascades those rules into technical reality."</div>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 400 400">
+                    <circle cx="200" cy="200" r="140" fill="none" stroke="#374151" stroke-width="4" stroke-dasharray="10,10"/>
+                    <g transform="translate(200, 70)">
+                        <rect x="-60" y="-30" width="120" height="60" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                        <text x="0" y="5" fill="#f3f4f6" font-size="16" font-weight="bold" text-anchor="middle">GOVERNANCE</text>
+                    </g>
+                    <g transform="translate(80, 260)">
+                        <rect x="-60" y="-30" width="120" height="60" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+                        <text x="0" y="5" fill="#f3f4f6" font-size="16" font-weight="bold" text-anchor="middle">RISK</text>
+                    </g>
+                    <g transform="translate(320, 260)">
+                        <rect x="-60" y="-30" width="120" height="60" rx="8" fill="#1e293b" stroke="#22d3ee" stroke-width="2"/>
+                        <text x="0" y="5" fill="#f3f4f6" font-size="16" font-weight="bold" text-anchor="middle">COMPLIANCE</text>
+                    </g>
+                    <path d="M 170 110 Q 120 160 100 220" fill="none" stroke="#22d3ee" stroke-width="3" marker-end="url(#arrow)"/>
+                    <path d="M 140 280 Q 200 320 260 280" fill="none" stroke="#22d3ee" stroke-width="3" marker-end="url(#arrow)"/>
+                    <path d="M 300 220 Q 280 160 230 110" fill="none" stroke="#22d3ee" stroke-width="3" marker-end="url(#arrow)"/>
+                    <defs>
+                        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#22d3ee" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" id="slide-2">
+            <div class="slide-content">
+                <h2>The Risk Cascade (The Operational Waterfall)</h2>
+                <div class="subtitle">Satisfying the Three Lines of Defense (3LoD)</div>
+                <ul>
+                    <li><strong>1. Data Foundation (The Source):</strong> Data Engineering, Classification Tiering, Labeling, and Security.</li>
+                    <li><strong>2. DevOps (The Infrastructure):</strong> Policy-as-Code and securing the Execution Boundary.</li>
+                    <li><strong>3. Cybersecurity (The Perimeter):</strong> Data Loss Prevention (DLP), SIEM, and Agentic Access Control.</li>
+                    <li><strong>4. AIOps (The Brain):</strong> Routing, Latency Optimization, and Drift Monitoring.</li>
+                </ul>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 500 400">
+                    <rect x="175" y="20" width="150" height="50" rx="8" fill="#10b981" class="svg-glow"/>
+                    <text x="250" y="50" fill="#fff" font-size="18" font-weight="bold" text-anchor="middle">RISK ENGINE</text>
+                    
+                    <path d="M 250 70 L 250 120 M 250 120 L 80 120 L 80 160 M 250 120 L 190 120 L 190 160 M 250 120 L 310 120 L 310 160 M 250 120 L 420 120 L 420 160" fill="none" stroke="#374151" stroke-width="3"/>
+                    
+                    <rect x="30" y="160" width="100" height="180" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="80" y="190" fill="#22d3ee" font-size="14" font-weight="bold" text-anchor="middle">DATA</text>
+                    <text x="80" y="220" fill="#9ca3af" font-size="12" text-anchor="middle">Tiering</text>
+                    <text x="80" y="240" fill="#9ca3af" font-size="12" text-anchor="middle">Labeling</text>
+                    
+                    <rect x="140" y="160" width="100" height="180" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="190" y="190" fill="#22d3ee" font-size="14" font-weight="bold" text-anchor="middle">DEVOPS</text>
+                    <text x="190" y="220" fill="#9ca3af" font-size="12" text-anchor="middle">IaC</text>
+                    <text x="190" y="240" fill="#9ca3af" font-size="12" text-anchor="middle">Boundary</text>
+
+                    <rect x="260" y="160" width="100" height="180" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="310" y="190" fill="#22d3ee" font-size="14" font-weight="bold" text-anchor="middle">CYBER</text>
+                    <text x="310" y="220" fill="#9ca3af" font-size="12" text-anchor="middle">DLP</text>
+                    <text x="310" y="240" fill="#9ca3af" font-size="12" text-anchor="middle">SIEM</text>
+
+                    <rect x="370" y="160" width="100" height="180" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="420" y="190" fill="#22d3ee" font-size="14" font-weight="bold" text-anchor="middle">AIOPS</text>
+                    <text x="420" y="220" fill="#9ca3af" font-size="12" text-anchor="middle">Routing</text>
+                    <text x="420" y="240" fill="#9ca3af" font-size="12" text-anchor="middle">XAI UIs</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" id="slide-3">
+            <div class="slide-content">
+                <h2>The Data Foundation</h2>
+                <div class="subtitle">Data Engineering & Security Prerequisites</div>
+                <ul>
+                    <li><strong>Classification Tiering & Labeling:</strong> Enforce strict tagging protocols (Public, Internal, Confidential, Restricted/PII) before AI ingestion.</li>
+                    <li><strong>Data Protection Act (DPA):</strong> Localized warehouses ensuring sovereign control over consumer data.</li>
+                    <li><strong>Data Security (RBAC):</strong> FIPS-validated encryption and Vector DBs with native access controls to restrict LLM retrieval contexts.</li>
+                </ul>
+                <div class="speaker-note">"If our data isn't tiered and labeled at the warehouse level, our AI has no way of knowing if it's violating the DPA."</div>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 400 400">
+                    <g transform="translate(100, 220)">
+                        <ellipse cx="100" cy="80" rx="80" ry="30" fill="#1e293b" stroke="#374151" stroke-width="2"/>
+                        <path d="M 20 80 L 20 20 A 80 30 0 0 0 180 20 L 180 80 A 80 30 0 0 1 20 80" fill="#1e293b" stroke="#374151" stroke-width="2"/>
+                        <ellipse cx="100" cy="20" rx="80" ry="30" fill="#10b981"/>
+                        <text x="100" y="25" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">TIER 3: PUBLIC</text>
+                    </g>
+                    <g transform="translate(100, 140)">
+                        <ellipse cx="100" cy="80" rx="80" ry="30" fill="#1e293b" stroke="#374151" stroke-width="2"/>
+                        <path d="M 20 80 L 20 20 A 80 30 0 0 0 180 20 L 180 80 A 80 30 0 0 1 20 80" fill="#1e293b" stroke="#374151" stroke-width="2"/>
+                        <ellipse cx="100" cy="20" rx="80" ry="30" fill="#f59e0b"/>
+                        <text x="100" y="25" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">TIER 2: INTERNAL</text>
+                    </g>
+                    <g transform="translate(100, 60)">
+                        <ellipse cx="100" cy="80" rx="80" ry="30" fill="#1e293b" stroke="#374151" stroke-width="2"/>
+                        <path d="M 20 80 L 20 20 A 80 30 0 0 0 180 20 L 180 80 A 80 30 0 0 1 20 80" fill="#1e293b" stroke="#374151" stroke-width="2"/>
+                        <ellipse cx="100" cy="20" rx="80" ry="30" fill="#ef4444" class="svg-glow-danger"/>
+                        <text x="100" y="25" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">TIER 1: RESTRICTED</text>
+                    </g>
+                    <!-- Metadata tags -->
+                    <rect x="290" y="65" width="80" height="25" rx="4" fill="#3b82f6"/>
+                    <text x="330" y="82" fill="#fff" font-size="10" font-weight="bold" text-anchor="middle">META: PII</text>
+                    <line x1="250" y1="77" x2="290" y2="77" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4,4"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide" id="slide-4">
+            <div class="slide-content">
+                <h2>Cybersecurity & Data Loss Prevention</h2>
+                <div class="subtitle">The Intersection of Data Security & AI Agents</div>
+                <ul>
+                    <li><strong>AI-Native DLP:</strong> Traditional DLP fails inside prompts. We integrate DLP directly into the AI workflow to mask Restricted/PII data <em>before</em> the foundation model.</li>
+                    <li><strong>Non-Human Identity Management:</strong> AI Agents are high-risk service accounts. We enforce Zero-Trust APIs preventing autonomous traversal of data lakes.</li>
+                    <li><strong>SIEM Integration:</strong> Blocked DLP events and unauthorized agent actions route directly to the SOC for triage.</li>
+                </ul>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 400 400">
+                    <path d="M 200 40 L 320 90 L 320 200 C 320 280 270 340 200 370 C 130 340 80 280 80 200 L 80 90 Z" fill="#1e293b" stroke="#22d3ee" stroke-width="4" class="svg-glow"/>
+                    <circle cx="200" cy="180" r="40" fill="#3b82f6"/>
+                    <text x="200" y="185" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">DLP</text>
+                    <!-- Threat vector -->
+                    <path d="M 20 180 L 130 180" fill="none" stroke="#ef4444" stroke-width="6" stroke-dasharray="8,8"/>
+                    <circle cx="140" cy="180" r="15" fill="#ef4444" class="svg-glow-danger"/>
+                    <text x="50" y="160" fill="#ef4444" font-size="14" font-weight="bold">AI Agent Request</text>
+                    <path d="M 130 170 L 150 180 L 130 190 Z" fill="#ef4444"/>
+                    <!-- Shield block -->
+                    <line x1="160" y1="140" x2="160" y2="220" stroke="#22d3ee" stroke-width="6"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide" id="slide-5">
+            <div class="slide-content">
+                <h2>DevOps & The AI Execution Boundary</h2>
+                <div class="subtitle">Where Paper Policies Become Hard-Coded Reality</div>
+                <ul>
+                    <li><strong>Policy-Validation Intercept (PVI):</strong> A deterministic middleware "airlock" deployed exactly at the Execution Boundary.</li>
+                    <li><strong>Context-Aware Enforcement:</strong> If an AI attempts an API call, the PVI reads the payload's Data Labels. Tier 1 exfiltration attempts are severed mathematically.</li>
+                    <li><strong>Immutable Infrastructure:</strong> Boundary rules are deployed as Policy-as-Code via CI/CD, preventing tampering by AI or unauthorized users.</li>
+                </ul>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 500 400">
+                    <rect x="20" y="150" width="100" height="100" rx="10" fill="#1e293b" stroke="#9ca3af" stroke-width="2"/>
+                    <text x="70" y="195" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">LLM /</text>
+                    <text x="70" y="220" fill="#fff" font-size="16" font-weight="bold" text-anchor="middle">AGENT</text>
+                    
+                    <path d="M 120 200 L 220 200" fill="none" stroke="#f59e0b" stroke-width="4" stroke-dasharray="5,5"/>
+                    <text x="170" y="190" fill="#f59e0b" font-size="12" text-anchor="middle">Tool_Call()</text>
+
+                    <!-- The Boundary -->
+                    <rect x="230" y="80" width="40" height="240" rx="4" fill="#22d3ee" class="svg-glow"/>
+                    <text x="250" y="60" fill="#22d3ee" font-size="14" font-weight="bold" text-anchor="middle">PVI AIRLOCK</text>
+
+                    <!-- Success Path -->
+                    <path d="M 270 150 L 380 150" fill="none" stroke="#10b981" stroke-width="4" marker-end="url(#arrow-green)"/>
+                    <rect x="390" y="120" width="90" height="60" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+                    <text x="435" y="155" fill="#10b981" font-size="14" font-weight="bold" text-anchor="middle">SAFE API</text>
+
+                    <!-- Block Path -->
+                    <path d="M 270 250 L 330 250" fill="none" stroke="#ef4444" stroke-width="4"/>
+                    <line x1="330" y1="230" x2="330" y2="270" stroke="#ef4444" stroke-width="6"/>
+                    <rect x="390" y="220" width="90" height="60" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="2" opacity="0.4"/>
+                    <text x="435" y="255" fill="#ef4444" font-size="14" font-weight="bold" text-anchor="middle">PII EXFIL</text>
+
+                    <defs>
+                        <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide" id="slide-6">
+            <div class="slide-content">
+                <h2>AIOps & Human Empowerment</h2>
+                <div class="subtitle">Operating Safely Without Destroying Latency</div>
+                <ul>
+                    <li><strong>Dynamic Routing:</strong> Low-risk queries (Tier 3 Data) bypass heavy scrutiny via regex "Fast-Pass", maintaining sub-100ms latency.</li>
+                    <li><strong>Decision Materiality Engine (DME):</strong> High-risk actions halt autonomous execution and route to a Subject Matter Expert (SME) Review Dashboard.</li>
+                    <li><strong>Explainable AI (XAI):</strong> When blocked, users receive plain-text rationales (e.g., <em>"Blocked: DPA violation via Tier 1 Data"</em>), satisfying EU AI Act transparency.</li>
+                </ul>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 500 400">
+                    <circle cx="100" cy="200" r="40" fill="#3b82f6"/>
+                    <text x="100" y="205" fill="#fff" font-size="14" font-weight="bold" text-anchor="middle">AI DME</text>
+
+                    <!-- Low Risk -->
+                    <path d="M 140 180 Q 200 120 260 120 L 360 120" fill="none" stroke="#10b981" stroke-width="4" marker-end="url(#arrow-green)"/>
+                    <text x="230" y="110" fill="#10b981" font-size="12" font-weight="bold">Sub 50ms Fast-Pass</text>
+                    <rect x="370" y="90" width="100" height="60" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+                    <text x="420" y="125" fill="#10b981" font-size="14" font-weight="bold" text-anchor="middle">AUTO EXEC</text>
+
+                    <!-- High Risk -->
+                    <path d="M 140 220 Q 200 280 260 280 L 360 280" fill="none" stroke="#f59e0b" stroke-width="4" marker-end="url(#arrow-yellow)"/>
+                    <text x="230" y="270" fill="#f59e0b" font-size="12" font-weight="bold">> $50k Materiality</text>
+                    <rect x="370" y="250" width="100" height="60" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+                    <!-- Human Icon -->
+                    <circle cx="420" cy="270" r="10" fill="#f59e0b"/>
+                    <path d="M 405 295 C 405 285 435 285 435 295" fill="#f59e0b"/>
+                    <text x="420" y="325" fill="#f59e0b" font-size="12" font-weight="bold" text-anchor="middle">SME REVIEW</text>
+
+                    <defs>
+                        <marker id="arrow-yellow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                            <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide" id="slide-7">
+            <div class="slide-content">
+                <h2>Observe (Audit & 3rd Line of Defense)</h2>
+                <div class="subtitle">Feeding the Compliance Loop Back to GRC</div>
+                <ul>
+                    <li><strong>OSCAL-Ready Audit Receipts:</strong> Continuous generation of verifiable JSON receipts proving SP 800-53 controls and DLP are functioning.</li>
+                    <li><strong>Statistical Drift Triggers:</strong> AIOps monitors Population Stability Index (PSI). High drift alerts the Risk department to reassess the model.</li>
+                    <li><strong>Independent Verification:</strong> Internal Audit (3rd Line) mathematically verifies compliance without interrupting 1st Line operations.</li>
+                </ul>
+                <div class="speaker-note">"Because our operational teams share one Risk framework, Internal Audit can verify our compliance at any given second."</div>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 400 400">
+                    <rect x="80" y="60" width="240" height="280" rx="8" fill="#1e293b" stroke="#9ca3af" stroke-width="2"/>
+                    <rect x="100" y="80" width="200" height="20" rx="4" fill="#374151"/>
+                    
+                    <!-- Code lines -->
+                    <text x="100" y="140" fill="#22d3ee" font-family="monospace" font-size="14">{</text>
+                    <text x="120" y="165" fill="#9ca3af" font-family="monospace" font-size="14">"status": <tspan fill="#10b981">"BLOCKED"</tspan>,</text>
+                    <text x="120" y="190" fill="#9ca3af" font-family="monospace" font-size="14">"policy": <tspan fill="#f59e0b">"NIST-AC-3"</tspan>,</text>
+                    <text x="120" y="215" fill="#9ca3af" font-family="monospace" font-size="14">"data_tier": <tspan fill="#ef4444">"TIER 1"</tspan>,</text>
+                    <text x="120" y="240" fill="#9ca3af" font-family="monospace" font-size="14">"hash": <tspan fill="#3b82f6">"a9f2b8..."</tspan></text>
+                    <text x="100" y="265" fill="#22d3ee" font-family="monospace" font-size="14">}</text>
+
+                    <!-- Magnifying glass -->
+                    <circle cx="280" cy="260" r="40" fill="none" stroke="#22d3ee" stroke-width="6" class="svg-glow"/>
+                    <line x1="305" y1="285" x2="340" y2="320" stroke="#22d3ee" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M 265 260 L 275 270 L 295 245" fill="none" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 8 -->
+        <div class="slide" id="slide-8">
+            <div class="slide-content">
+                <h2>The "Golden Thread" of Traceability</h2>
+                <div class="subtitle">Visualizing an Auditor's Request</div>
+                <p><em>"How do you prevent an AI from leaking PII protected by the DPA?"</em></p>
+                <ul>
+                    <li><strong>1. GRC:</strong> The Policy defines the restriction.</li>
+                    <li><strong>2. Data Engineering:</strong> The Lake tags the data "Restricted/PII".</li>
+                    <li><strong>3. DevOps/Cyber:</strong> PVI & DLP intercept the prompt at the Boundary.</li>
+                    <li><strong>4. AIOps:</strong> The Human SME dashboard logs the blocked event.</li>
+                    <li><strong>5. Compliance:</strong> The JSON Audit Log proves the Agent was stopped.</li>
+                </ul>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 500 400">
+                    <path d="M 50 200 C 150 50, 350 350, 450 200" fill="none" stroke="#f59e0b" stroke-width="4" class="svg-glow"/>
+                    
+                    <circle cx="50" cy="200" r="15" fill="#3b82f6"/>
+                    <text x="50" y="240" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">GRC</text>
+                    
+                    <circle cx="150" cy="115" r="15" fill="#10b981"/>
+                    <text x="150" y="90" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">DATA</text>
+
+                    <circle cx="250" cy="200" r="15" fill="#22d3ee"/>
+                    <text x="250" y="240" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">BOUNDARY</text>
+
+                    <circle cx="350" cy="285" r="15" fill="#ef4444"/>
+                    <text x="350" y="325" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">AIOPS/DME</text>
+
+                    <circle cx="450" cy="200" r="15" fill="#8b5cf6"/>
+                    <text x="450" y="170" fill="#fff" font-size="12" font-weight="bold" text-anchor="middle">AUDIT LOG</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="slide" id="slide-9">
+            <div class="slide-content">
+                <h2>Value Proposition & ROI</h2>
+                <div class="subtitle">Why This Architecture Wins</div>
+                <ul>
+                    <li><strong>Regulatory Resilience:</strong> Satisfies DPA, EU AI Act, Fed SR 26-02, and NIST COSAiS with hard technical evidence.</li>
+                    <li><strong>Unlocks Enterprise Data:</strong> Strict tiering and execution boundaries allow the business to leverage proprietary data for AI without exfiltration fears.</li>
+                    <li><strong>Speed to Market:</strong> Engineering teams receive precise, code-ready blueprints, removing the guesswork from "Responsible AI."</li>
+                </ul>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 400 400">
+                    <!-- Chart -->
+                    <line x1="50" y1="320" x2="350" y2="320" stroke="#9ca3af" stroke-width="4"/>
+                    <line x1="50" y1="320" x2="50" y2="80" stroke="#9ca3af" stroke-width="4"/>
+                    
+                    <rect x="80" y="240" width="40" height="80" fill="#3b82f6"/>
+                    <rect x="150" y="180" width="40" height="140" fill="#22d3ee"/>
+                    <rect x="220" y="100" width="40" height="220" fill="#10b981" class="svg-glow"/>
+                    
+                    <!-- Arrow -->
+                    <path d="M 60 260 L 160 180 L 230 80 L 320 40" fill="none" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+                    <polygon points="310,30 335,35 325,60" fill="#f59e0b"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Slide 10 -->
+        <div class="slide" id="slide-10">
+            <div class="slide-content">
+                <h2>Next Steps & Immediate Actions</h2>
+                <div class="subtitle">The First 90 Days</div>
+                <ul>
+                    <li><strong>1. Data Assessment:</strong> Audit current Data Lakes to ensure Classification Tiering and Labeling standards are ready for AI ingestion.</li>
+                    <li><strong>2. Architecture Intake:</strong> Map current AI prototypes against NIST COSAiS Use Cases to identify unprotected boundaries.</li>
+                    <li><strong>3. Prototype the Boundary:</strong> Deploy a Policy-Validation Intercept (PVI) layer on an internal GenAI tool to prove latency and security metrics.</li>
+                </ul>
+                <div class="speaker-note">Formal Request: Approval to adopt the GRC-driven AI Trust & Execution Framework.</div>
+            </div>
+            <div class="slide-visual">
+                <svg viewBox="0 0 400 400">
+                    <rect x="60" y="280" width="280" height="60" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="2"/>
+                    <text x="100" y="315" fill="#fff" font-size="16" font-weight="bold">1. Data Assessment</text>
+                    <circle cx="300" cy="310" r="12" fill="#10b981"/>
+                    <path d="M 295 310 L 299 315 L 306 305" fill="none" stroke="#fff" stroke-width="3"/>
+
+                    <rect x="60" y="180" width="280" height="60" rx="8" fill="#1e293b" stroke="#22d3ee" stroke-width="2"/>
+                    <text x="100" y="215" fill="#fff" font-size="16" font-weight="bold">2. Architecture Intake</text>
+                    <circle cx="300" cy="210" r="12" fill="#10b981"/>
+                    <path d="M 295 210 L 299 215 L 306 205" fill="none" stroke="#fff" stroke-width="3"/>
+
+                    <rect x="60" y="80" width="280" height="60" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2" class="svg-glow"/>
+                    <text x="100" y="115" fill="#fff" font-size="16" font-weight="bold">3. Prototype Boundary</text>
+                    <circle cx="300" cy="110" r="12" fill="none" stroke="#9ca3af" stroke-width="3"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="counter"><span id="current-slide">1</span> / 10</div>
+            <button id="btn-prev">◀ Prev</button>
+            <button id="btn-next">Next ▶</button>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            const currentSlideEl = document.getElementById('current-slide');
+            let currentIndex = 0;
+
+            function updateSlides() {
+                slides.forEach((slide, index) => {
+                    if (index === currentIndex) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                        // Optional: Reset transform based on direction for slide-in effect
+                        if (index < currentIndex) {
+                            slide.style.transform = 'translateX(-20px)';
+                        } else {
+                            slide.style.transform = 'translateX(20px)';
+                        }
+                    }
+                });
+                currentSlideEl.textContent = currentIndex + 1;
+                
+                btnPrev.disabled = currentIndex === 0;
+                btnNext.disabled = currentIndex === slides.length - 1;
+                
+                if(btnPrev.disabled) btnPrev.style.opacity = '0.5';
+                else btnPrev.style.opacity = '1';
+                
+                if(btnNext.disabled) btnNext.style.opacity = '0.5';
+                else btnNext.style.opacity = '1';
+            }
+
+            btnPrev.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlides();
+                }
+            });
+
+            btnNext.addEventListener('click', () => {
+                if (currentIndex < slides.length - 1) {
+                    currentIndex++;
+                    updateSlides();
+                }
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'Space') {
+                    if (currentIndex < slides.length - 1) {
+                        currentIndex++;
+                        updateSlides();
+                    }
+                } else if (e.key === 'ArrowLeft') {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateSlides();
+                    }
+                }
+            });
+
+            // Initialize
+            updateSlides();
+        });
+    </script>
+</body>
+</html>
