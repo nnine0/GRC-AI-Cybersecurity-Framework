@@ -1,3 +1,5 @@
+> **Interactive Pitch Deck:** [https://nnine0.github.io/GRC-AI-Cybersecurity-Framework/](https://nnine0.github.io/GRC-AI-Cybersecurity-Framework/)
+
 # AI Trust & Execution Framework
 
 > **The GRC Cycle: Cascading Risk into Cyber, DevOps, AIOps, and Data**
@@ -79,12 +81,6 @@ When a regulator asks *"How do you prevent an AI from leaking PII?"*:
 1. **Data Assessment** — Audit data lakes for tiering/labeling readiness
 2. **Architecture Intake** — Map AI prototypes against NIST COSAiS use cases
 3. **Prototype the Boundary** — Deploy PVI on an internal GenAI tool
-
----
-
-## Pitch Deck
-
-View the interactive pitch deck: [**https://nnine0.github.io/GRC-AI-Cybersecurity-Framework/**](https://nnine0.github.io/GRC-AI-Cybersecurity-Framework/)
 
 ---
 
